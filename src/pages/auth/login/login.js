@@ -49,9 +49,10 @@ const Login = () => {
             if (data.information.role !== 'user') {
                 toast.error('Đăng nhập thất bại', toastOptions)
             } else {
-                cookies.save("Token", data.accessToken)
-                cookies.save("user", data.information)
                 dispatch(userLogin(data.information))
+                cookies.save('user', data.information)
+                cookies.save('Token', data.accessToken)
+
                 navigate('/');
             }
         } catch (e) {
@@ -106,9 +107,6 @@ const Login = () => {
                                 <div className="form-group pb-3">
                                     <input type="password" placeholder="Mật khẩu" className="form-control" name='password' onChange={handleChange} />
                                     <p style={{ color: 'red' }} className='text-red-400 text-xs italic'>{validate.password}</p>
-                                </div>
-                                <div className="d-flex align-items-center justify-content-between mb-2">
-                                    <div><Link className="link-primary" to='/forgotpassword'>Quên mật khẩu?</Link></div>
                                 </div>
                                 <div className="pb-2">
                                     <button type="submit" className="btn btn-dark w-100 font-weight-bold mt-2" >Đăng nhập</button>
