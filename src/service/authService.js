@@ -1,9 +1,6 @@
 import request from '../core/utils/axios';
 
 const loginService = (user) => {
-    // const config = {
-    //     headers: { Authorization: `Bearer ${token}` }
-    // };
 
     const bodyParameters = {
         ...user
@@ -16,9 +13,6 @@ const loginService = (user) => {
 }
 
 const signupService = (user) => {
-    // const config = {
-    //     headers: { Authorization: `Bearer ${token}` }
-    // };
     delete user.confirmPassword
     const bodyParameters = {
         ...user
@@ -30,4 +24,11 @@ const signupService = (user) => {
     )
 }
 
-export { loginService, signupService }
+const getUserService = (id) => {
+
+    return request.get(
+        'users/' + id
+    )
+}
+
+export { loginService, signupService, getUserService }

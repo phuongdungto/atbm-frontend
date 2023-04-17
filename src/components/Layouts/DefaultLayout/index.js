@@ -1,5 +1,5 @@
 import Header from "./Header";
-import Sidebar from "./Sidebar";
+// import Sidebar from "./Sidebar";
 import Footer from "./Footer";
 
 function DefaultLayout({ children }) {
@@ -15,12 +15,11 @@ function DefaultLayout({ children }) {
         <div style={{ fontFamily: 'Verdana, Geneva, Tahoma, sans-serif', }}>
             <header style={mystyle}>
                 <Header />
-                <Sidebar />
 
             </header>
 
-            <div className="content">
-
+            <div className="container mt-5">
+                {/* <Sidebar /> */}
                 {children}
             </div>
             <Footer />
