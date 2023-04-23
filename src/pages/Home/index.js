@@ -135,10 +135,7 @@ const Home = () => {
         try {
             const res = await createPost(bodyFormData, token)
             const data = (res && res.data) ? res.data : '';
-            // const post = await getPost(data.userId);
-            // const data1 = (post && post.data) ? post.data : '';
-            // console.log(data1);
-            // socket.emit('post', data1);
+            socket.emit('post', data);
             setContent({
                 content: ''
             });
@@ -236,12 +233,18 @@ const Home = () => {
                 })
             }
         });
-        // socket.on('post', (data) => {
-        //     const newpost = posts.concat({ data });
-        //     console.log(newpost);
-        //     setPosts(newpost);
-        // });
     }, [postDetail])
+
+    useEffect(() => {
+        socket.on('post', (data) => {
+            if (posts && posts.length > 0) {
+                const newPost = data;
+                const updatedPost = [...posts];
+                updatedPost.unshift(newPost);
+                setPosts(updatedPost);
+            }
+        });
+    }, [posts])
     const UserMenu = (
         <img className="img-dot" src={require('../../assets/home/images/ellipsis.png')} alt="" />
     )
@@ -321,34 +324,33 @@ const Home = () => {
                                     <small>Public <i class="fas fa-caret-down"></i></small>
                                 </div>
                             </div>
-                            <form >
-                                <div class="post-upload-textarea">
-                                    <textarea name="content" value={content.content} type="input" onChange={handleChangeContent} placeholder={`What's on your mind, ${user && user.fullname} ?`} id="" cols="30" rows="3"></textarea>
-                                    <p style={{ color: 'red' }} className='text-red-400 text-xs italic'>{validate.content}</p>
-                                    <div class="add-post-links">
-                                        <div className="app">
-                                            <div>
-                                                <input type="file" id="file" multiple onChange={handleImageChange} />
-                                                <div className="label-holder">
-                                                    <label htmlFor="file" className="label">
-                                                        <img src={require("../../assets/home/images/photo.png")} alt="" />
-                                                    </label>
-                                                </div>
-                                                <div className="result">
-                                                    {selectedFiles && selectedFiles.length > 0 &&
-                                                        renderPhotos(selectedFiles)
-                                                    }
-                                                </div>
+
+                            <div class="post-upload-textarea">
+                                <textarea name="content" value={content.content} type="input" onChange={handleChangeContent} placeholder={`What's on your mind, ${user && user.fullname} ?`} id="" cols="30" rows="3"></textarea>
+                                <p style={{ color: 'red' }} className='text-red-400 text-xs italic'>{validate.content}</p>
+                                <div class="add-post-links">
+                                    <div className="app">
+                                        <div>
+                                            <input type="file" id="file" multiple onChange={handleImageChange} />
+                                            <div className="label-holder">
+                                                <label htmlFor="file" className="label">
+                                                    <img src={require("../../assets/home/images/photo.png")} alt="" />
+                                                </label>
+                                            </div>
+                                            <div className="result">
+                                                {selectedFiles && selectedFiles.length > 0 &&
+                                                    renderPhotos(selectedFiles)
+                                                }
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div className="row">
-                                    <div className="col-12">
-                                        <Button type='submit' onClick={(e) => onclickPost()} style={{ width: 'max-content' }}>Đăng</Button>
-                                    </div>
+                            </div>
+                            <div className="row">
+                                <div className="col-12">
+                                    <Button onClick={(e) => onclickPost()} style={{ width: 'max-content' }}>Đăng</Button>
                                 </div>
-                            </form>
+                            </div>
                         </div>
                     )
 

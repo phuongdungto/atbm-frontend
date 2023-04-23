@@ -46,9 +46,7 @@ const Login = () => {
 
             let response = await loginService(login);
             const data = response && response.data ? response.data : '';
-            if (data.information.role !== 'user') {
-                toast.error('Đăng nhập thất bại', toastOptions)
-            } else {
+            if (data) {
                 dispatch(userLogin(data.information))
                 cookies.save('user', data.information)
                 cookies.save('Token', data.accessToken)

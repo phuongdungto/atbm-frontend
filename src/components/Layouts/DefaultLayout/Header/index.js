@@ -32,6 +32,9 @@ function Header() {
         cookies.remove("user")
         dispatch(userLogout());
     }
+    const changeHome = () => {
+        navigate('/');
+    }
     const UserMenu = (
         <div class="profile-image online" >
             <Image
@@ -46,7 +49,7 @@ function Header() {
     return (
         <>
             <nav class="navbar">
-                <div class="nav-left"><img class="logo" src={require("../../../../assets/home/images/logo.png")} alt="" />
+                <div style={{ cursor: 'pointer' }} onClick={(e) => changeHome()} class="nav-left"><img class="logo" src={require("../../../../assets/home/images/logo.png")} alt="" />
                     {/* <ul class="navlogo">
                         <li><img src="../../../../assets/home/images/notification.png" /></li>
                         <li><img src="../../../../assets/home/images/inbox.png" /></li>
