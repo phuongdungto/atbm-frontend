@@ -28,7 +28,7 @@ function Header() {
         navigate('/login');
     }
     const handleLogout = () => {
-        cookies.remove("Token")
+        localStorage.removeItem("Token")
         cookies.remove("user")
         dispatch(userLogout());
     }

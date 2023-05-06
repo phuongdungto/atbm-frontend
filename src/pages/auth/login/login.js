@@ -49,7 +49,7 @@ const Login = () => {
             if (data) {
                 dispatch(userLogin(data.information))
                 cookies.save('user', data.information)
-                cookies.save('Token', data.accessToken)
+                window.localStorage.setItem('Token', data.accessToken);
 
                 navigate('/');
             }

@@ -20,7 +20,7 @@ import { getUserService } from "../../service/authService";
 const socket = io('http://localhost:3004');
 const Home = () => {
     const user = useSelector(state => state.user.user);
-    const token = cookies.load('Token');
+    const token = window.localStorage.getItem('Token');
     const navigate = useNavigate();
     const [searchPost, setSearchPost] = useState({
         limit: 5,
